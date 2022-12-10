@@ -11,15 +11,33 @@
  */
 class Solution {
 public:
-   long res = 0, total = 0, sub;
-   int s(TreeNode* root) {
-        if (!root) return 0;
-        sub = root->val + s(root->left) + s(root->right);
-        res = max(res, sub * (total - sub));
-        return sub;
+    long long int solve( TreeNode* root){
+        if( root == NULL) return 0;
+
+        long long sum=solve(root->left) + solve(root->right) + root->val;
+        return sum;
+    }
+
+    int func( TreeNode* root , int totalsum , long long int& ans){
+        if( root == NULL) return 0;
+
+        long long int subtree=0;
+
+        subtree+=func(root->left , totalsum , ans);
+        subtree+=func(root->right , totalsum , ans);
+        subtree+=root->val;
+
+        if(subtree*(totalsum-subtree) > ans){
+            ans=subtree*(totalsum-subtree);
+        }
+        return subtree;
+
+
     }
     int maxProduct(TreeNode* root) {
-        total = s(root); s(root);
-        return (int)(res % (int)(1e9 + 7));
+        long long int totalsum=solve(root);
+        long long int ans=0;
+        func(root , totalsum  , ans);
+        return ans%1000000007;
     }
 };
