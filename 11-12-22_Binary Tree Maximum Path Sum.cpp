@@ -13,6 +13,7 @@ class Solution {
 public:
 int solve(TreeNode* root, int& maxSum)
     {
+    
         if(root == NULL){
             return 0;
         } 
