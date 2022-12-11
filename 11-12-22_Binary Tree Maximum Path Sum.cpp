@@ -24,6 +24,8 @@ int solve(TreeNode* root, int& maxSum)
         return max(lMax, rMax)+root->val;
     }
     int maxPathSum(TreeNode* root) {
+        
+        
         int maxSum = INT_MIN;
         solve(root, maxSum);
         return maxSum;
