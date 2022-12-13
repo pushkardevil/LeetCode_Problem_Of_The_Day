@@ -6,6 +6,8 @@ public:
 // If only one row. return minimum ..
         if(n == 1) return *min_element(matrix[0].begin(),matrix[0].end());
 
+  
+  
 // Otherwise traverse the entire matrix and update it.
         for(int i=1;i<n;i++){
             for(int j=0;j<m;j++){
