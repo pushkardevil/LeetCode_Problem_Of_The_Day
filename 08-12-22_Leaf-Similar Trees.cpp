@@ -47,7 +47,5 @@ void inorde(TreeNode* root2 , vector<int>&v2){
 
         return true;
 
-
-
     }
 };
