@@ -1,38 +1,32 @@
+// LINK :  https://leetcode.com/problems/palindrome-partitioning/description/
 
 class Solution {
 public:
-vector<vector<string>> ans;
-     bool palindrome(string s,int start,int end ){
+bool isPalindrome(string s,int start,int end ){
          while(start<end){
              if(s[start++] != s[end--]){return false;}
          }
          return true;
      }
+void solve(int indx , string s , vector<string>&v , vector<vector<string>>&ans){
+    //base case
+    if(indx == s.size()){
+        ans.push_back(v);
+        return;
+    }
 
-     void solve(string s,vector<string>&temp,int index ){
-
-        //  base case
-        if(index == s.size()){
-            ans.push_back(temp);
-            return;
+    for(int i=indx;i<s.size();i++){
+        if(isPalindrome(s , indx , i)){
+            v.push_back(s.substr(indx , i-indx+1));
+            solve(i+1 , s , v , ans);
+            v.pop_back();
         }
-
-        // loop and do partition based on if palindrome string from 0 to index.
-        for(int i=index;i<s.size();i++){
-            // if it is palindrome
-            if(palindrome(s,index,i)){
-                temp.push_back(s.substr(index,i-index+1));
-                solve(s,temp,i+1);
-                // pop out value in backtracking for new seq if possible.
-                temp.pop_back();
-            }
-        }
-     }
-
+    }
+}
     vector<vector<string>> partition(string s) {
-         vector<string> temp;
-
-        solve(s,temp,0);
+        vector<vector<string>>ans;
+        vector<string>v;
+        solve(0 , s , v , ans);
         return ans;
     }
 };
